@@ -6,5 +6,5 @@ setup(name='Verracos',
       author='Victor Cuervo',
       author_email='vcuervo@gmail.com',
       url='http://www.python.org/sigs/distutils-sig/',
-      install_requires=['Flask==0.10.1','pymongo>=3.2','tinys3>=0.1.11','lxml==3.5.0','Flask-Mail==0.9.1']
+      install_requires=['Flask==0.10.1','pymongo>=3.2','tinys3>=0.1.11','Flask-Mail==0.9.1']
      )
