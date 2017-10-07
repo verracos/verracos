@@ -1,0 +1,239 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>{{config['APPNAME']}} | Añadir Medidas</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="/static/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="/static/assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="/static/assets/css/ie9.css" /><![endif]-->
+
+		<style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map {  height: 500px; width: 100%; }
+
+      ul {
+          margin: 0;
+      }
+
+    </style>
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				{% include '/includes/header.html' %}
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Gestión del Sistema de Verracos</h2>
+							<p>Alta Medidas del Verraco</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+
+								<h3>Alta Medidas del Verraco</h3>
+
+								<section>
+									<header>
+										<h4>Información General</h4>
+									</header>
+
+									<div class="row uniform">
+
+											<div class="6u 12u$(small)">
+												<strong>Código</strong>: <input disabled type="text" name="codigo" id="codigo" value="{{verraco['codigo']}}" />
+											</div>
+											<div class="6u 12u$(small)">
+												<strong>Nombre</strong>: <input disabled type="text" name="nombre" id="nombre" value="{{verraco['nombre']}}"  />
+											</div>
+                                            <div class="12u">
+                                                <strong>Dimensiones</strong>:<br/>
+
+
+                                                <table class="alt">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Año</th>
+                                                        <th>Autor</th>
+                                                        <th>Medidas</th>
+														<th>Perímetro</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+												   {% for medidas in verraco['medidas'] %}
+                                                    <tr>
+														<td>{{ medidas['year'] }}</td>
+														<td>{{ medidas['autor'] }}</td>
+														<td>{% if medidas['dimensiones'][0] != '' : %}
+                                                            {{medidas['dimensiones'][0]}}x{{medidas['dimensiones'][1]}}x{{medidas['dimensiones'][2]}}
+                                                            {% endif %}
+														</td>
+														<td>{{ medidas['perimetro'] }}</td>
+                                                        <td><ul class="actions">
+									                        <li><a id="delete" data-id="{{ medidas['codigo'] }}" href="#" class="button special icon fa-remove">Borrar</a></li>
+								                        </ul> </td>
+
+                                                    </tr>
+												{% endfor %}
+												</tbody>
+                                               </table>
+
+
+                                            </div>
+
+
+									</div>
+								</section>
+
+								<hr />
+
+                                <section>
+                                    <header>
+                                        <h4>Nuevas Medidas</h4>
+                                    </header>
+
+                                        <div class="row">
+											<div class="6u 12u$(small)">
+                                                <strong>Dimensiones</strong>:
+												<div class="row uniform">
+													<div class="4u 12u$(small)">
+														<input type="text" size="3" name="X" id="X" value="" />
+													</div>
+													<div class="4u 12u$(small)">
+														<input type="text" size="3" name="Y" id="Y" value="" />
+													</div>
+													<div class="4u 12u$(small)">
+														<input type="text" size="3" name="Z" id="Z" value="" />
+													</div>
+												</div>
+                                            </div>
+                                            <div class="6u 12u$(small)">
+                                                <strong>Perimetro</strong>: <input type="text" name="perimetro" id="perimetro" value="" placeholder="Perímetro" />
+                                            </div>
+                                            <div class="6u 12u$(small)">
+                                                <strong>Autor</strong>: <input type="text" name="autor" id="autor" value="" placeholder="Autor"/>
+                                            </div>
+											<div class="6u 12u$(small)">
+                                                <strong>Año</strong>: <input type="text" name="annio" id="annio" value="" placeholder="Año"/>
+                                            </div>
+
+                                            <div id="preview"></div>
+                                        </div>
+                                </section>
+
+                                <hr />
+
+
+
+                                <ul class="actions">
+									<li><a id="add" href="#" class="button special icon fa-upload">Añadir Dimensiones</a></li>
+									<li><a href="/admin/" class="button special icon fa-list">Listado de Verracos</a></li>
+								</ul></p>
+                                <div id="resultado"></div>
+
+
+
+
+
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+				{% include '/includes/footer.html' %}
+
+			</div>
+
+
+
+
+		<!-- Scripts -->
+			<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/static/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/static/assets/js/skel.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/static/assets/js/main.js"></script>
+
+
+			<script>
+
+				var add = document.getElementById("add");
+				add.addEventListener("click",function(ev){
+
+                    document.getElementById("resultado").innerHTML = "Subiendo dimensiones..."
+
+					var dim = new Object();
+					dim.codigo = new Date().getTime();
+					dim.perimetro = document.getElementById("perimetro").value;
+					dim.autor = document.getElementById("autor").value;
+					dim.year = document.getElementById("annio").value;
+
+                    var dimensiones = new Array();
+					dimensiones.push(document.getElementById("X").value);
+					dimensiones.push(document.getElementById("Y").value);
+					dimensiones.push(document.getElementById("Z").value);
+					dim.dimensiones = dimensiones;
+
+
+					$.ajax({
+						type: 'POST',
+						url: '/api/verraco/{{verraco["codigo"]}}/dimensions',
+						data: JSON.stringify(dim),
+						contentType: 'application/json',
+						processData: false,
+					}).done(function(data, textStatus, jqXHR){
+						document.getElementById("resultado").innerHTML = data.resultado.respuesta + ': ' + data.resultado.descripcion;
+						location.href = "/admin/dimensions/{{verraco['codigo']}}";
+					}).fail(function(data){
+						document.getElementById("resultado").innerHTML = 'Error en petición';
+					});
+
+					ev.preventDefault();
+
+				},false);
+
+                var dels = document.getElementsByClassName("fa-remove");
+
+				for (x=0;x<dels.length;x++) {
+					dels[x].addEventListener("click", function (ev) {
+
+						document.getElementById("resultado").innerHTML = "Borrando documento..."
+
+						var cod = this.getAttribute("data-id");
+						$.ajax({
+							type: 'DELETE',
+							url: '/api/verraco/{{verraco["codigo"]}}/dimensions/'+cod,
+							contentType: false,
+							processData: false,
+						}).done(function(data, textStatus, jqXHR){
+							document.getElementById("resultado").innerHTML = data.resultado.respuesta + ': ' + data.resultado.descripcion;
+							location.href = "/admin/dimensions/{{verraco['codigo']}}";
+						}).fail(function(data){
+							document.getElementById("resultado").innerHTML = 'Error en petición';
+						});
+
+
+
+						ev.preventDefault();
+
+					},false);
+				}
+
+			</script>
+
+
+	</body>
+</html>

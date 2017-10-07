@@ -1,0 +1,253 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>{{config['APPNAME']}} | Añadir Imágenes</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="/static/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="/static/assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="/static/assets/css/ie9.css" /><![endif]-->
+
+		<style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map {  height: 500px; width: 100%; }
+
+
+      .mini {
+          width:200px;
+          height:200px;
+      }
+      ul {
+          margin: 0;
+      }
+
+    </style>
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+			{% include '/includes/header.html' %}
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Gestión del Sistema de Verracos</h2>
+							<p>Alta Imágenes del Verraco</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+
+								<h3>Alta Imágenes del Verraco</h3>
+
+								<section>
+									<header>
+										<h4>Información General</h4>
+									</header>
+
+									<div class="row uniform">
+
+											<div class="6u 12u$(small)">
+												<strong>Código</strong>: <input disabled type="text" name="codigo" id="codigo" value="{{verraco['codigo']}}" />
+											</div>
+											<div class="6u 12u$(small)">
+												<strong>Nombre</strong>: <input disabled type="text" name="nombre" id="nombre" value="{{verraco['nombre']}}"  />
+											</div>
+                                            <div class="12u">
+                                                <strong>Imagenes</strong>:<br/>
+
+
+                                                <table class="alt">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Imagen</th>
+                                                        <th>Autor</th>
+                                                        <th>Fecha</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+												   {% for pic in verraco['pictures'] %}
+                                                    <tr>
+                                                        <td><img src="{{config['IMAGE_SERVER']}}{{verraco['codigo']}}/{{ pic['file'] }}" class="mini"/></td><td>{{ pic['autor'] }}</td><td>{{ pic['fecha'] }}</td>
+                                                        <td><ul class="actions">
+									                        <li><a id="delete" data-id="{{ pic['file'] }}" href="#" class="button special icon fa-remove">Borrar</a></li>
+								                        </ul> </td>
+
+                                                    </tr>
+												{% endfor %}
+												</tbody>
+                                               </table>
+
+
+                                            </div>
+
+
+									</div>
+								</section>
+
+								<hr />
+
+                                <section>
+                                    <header>
+                                        <h4>Nueva Imagen</h4>
+                                    </header>
+
+                                    <form method="post" id="uploadform" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="6u 12u$(small)">
+                                                <strong>Autor</strong>: <input type="text" name="autor" id="autor" value="" placeholder="Autor" />
+                                            </div>
+                                            <div class="6u 12u$(small)">
+                                                <strong>Fecha</strong>: <input type="text" name="fecha" id="fecha" value="" />
+                                            </div>
+                                            <div class="12u">
+                                                <strong>Fotografía</strong>: <input type="file" name="fotografia" id="fotografia" value="" />
+                                            </div>
+                                            <div id="preview"></div>
+                                        </div>
+                                    </form>
+                                </section>
+
+                                <hr />
+
+
+
+                                <ul class="actions">
+									<li><a id="add" href="#" class="button special icon fa-upload">Añadir Imagen</a></li>
+									<li><a href="/admin/" class="button special icon fa-list">Listado de Verracos</a></li>
+								</ul></p>
+                                <div id="resultado"></div>
+
+
+
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<ul class="icons">
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+							<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+						</ul>
+						<ul class="copyright">
+							<li>&copy; Untitled</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+						</ul>
+					</footer>
+
+			</div>
+
+
+
+
+		<!-- Scripts -->
+			<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/static/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/static/assets/js/skel.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/static/assets/js/main.js"></script>
+
+
+			<script>
+
+                var inputElement = document.getElementById("fotografia");
+				inputElement.addEventListener("change", handleFiles, false);
+				function handleFiles() {
+
+					var files = this.files;
+
+					// Borro el contenido del preview
+					preview.innerHTML = '';
+
+					for (var i = 0; i < files.length; i++) {
+				    var file = files[i];
+				    var imageType = /^image\//;
+
+				    if (!imageType.test(file.type)) {
+				      continue;
+				    }
+
+				    var img = document.createElement("img");
+				    img.classList.add("obj");
+				    img.file = file;
+						img.width = 300;
+						img.height = 300;
+				    preview.appendChild(img); // Assuming that "preview" is the div output where the content will be displayed.
+
+				    var reader = new FileReader();
+				    reader.onload = (function(aImg) { return function(e) { aImg.src = e.target.result; }; })(img);
+				    reader.readAsDataURL(file);
+			  	}
+
+				}
+
+				var add = document.getElementById("add");
+				add.addEventListener("click",function(ev){
+
+                    var form_data = new FormData($('#uploadform')[0]);
+
+                    document.getElementById("resultado").innerHTML = "Subiendo foto..."
+                    $.ajax({
+                        type: 'POST',
+                        url: '/api/verraco/{{verraco["codigo"]}}/picture',
+                        data: form_data,
+                        contentType: false,
+                        processData: false,
+                        dataType: 'json'
+                    }).done(function(data, textStatus, jqXHR){
+                        document.getElementById("resultado").innerHTML = data.resultado.respuesta + ': ' + data.resultado.descripcion;
+                        location.href = "/admin/picture/{{verraco['codigo']}}";
+                    }).fail(function(data){
+                        document.getElementById("resultado").innerHTML = 'Error en petición';
+                    });
+
+					ev.preventDefault();
+
+				},false);
+
+                var dels = document.getElementsByClassName("fa-remove");
+
+				for (x=0;x<dels.length;x++) {
+					dels[x].addEventListener("click", function (ev) {
+
+						document.getElementById("resultado").innerHTML = "Borrando foto..."
+
+						var filename = this.getAttribute("data-id");
+						$.ajax({
+							type: 'DELETE',
+							url: '/api/verraco/{{verraco['codigo']}}/picture/'+filename,
+							contentType: false,
+							processData: false,
+						}).done(function(data, textStatus, jqXHR){
+							document.getElementById("resultado").innerHTML = data.resultado.respuesta + ': ' + data.resultado.descripcion;
+							location.href = "/admin/picture/{{verraco['codigo']}}";
+						}).fail(function(data){
+							document.getElementById("resultado").innerHTML = 'Error en petición';
+						});
+
+
+
+						ev.preventDefault();
+
+					},false);
+				}
+
+			</script>
+
+
+	</body>
+</html>

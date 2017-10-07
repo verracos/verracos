@@ -1,0 +1,168 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>{{config['APPNAME']}} | Mapa de Localización</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="/static/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="/static/assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="/static/assets/css/ie9.css" /><![endif]-->
+
+		<style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map {  height: 500px; width: 100%; }
+    </style>
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+			{% include '/includes/header.html' %}
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Mapa de localización</h2>
+							<p>Ubicación actual de los verracos</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+
+								<div class="row">
+
+									<div class="9u 12u$(small)">
+										<h3>Mapa</h3>
+										<div id="map">Mapa</div>
+									</div>
+
+									<div class="3u 12u$(small)">
+										<h3>Listado</h3>
+										<table class="alt" id="tablalistado">
+											<thead>
+												<tr>
+                                                	<th>Código</th>
+                                                    <th>Nombre</th>
+												</tr>
+											</thead>
+											<tbody>
+											</tbody>
+										</table>
+
+									</div>
+
+								</div>
+
+								<hr />
+
+								<ul class="actions">
+									<li><a href="/listado" class="button special icon fa-list">Listado de Verracos</a></li>
+									<li><a href="/buscar" class="button special icon fa-search">Búsqueda</a></li>
+								</ul>
+
+							</div>
+						</section>
+					</article>
+
+				{% include '/includes/header.html' %}
+
+			</div>
+
+
+
+		<!-- Scripts -->
+			<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/static/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/static/assets/js/skel.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/static/assets/js/main.js"></script>
+
+		<script type="text/javascript">
+
+
+				var verracos = [
+				{% for verraco in verracos %}
+					{
+						codigo: '{{ verraco['codigo'] }}',
+						nombre: '{{ verraco['nombre'] }}',
+						descripcion: '{{ verraco['geo']['ubicacion'].replace('\n', '') }}',
+						geo:{
+							lat:{{ verraco['geo']['lat'] }},
+							lng:{{ verraco['geo']['lng'] }}
+						},
+						imagen: {% if verraco['pictures']: %}
+								'{{config['IMAGE_SERVER']}}{{verraco['codigo']}}/{{verraco['pictures'][0]['file']}}'
+								{% else %}
+								''
+								{% endif %}
+					},
+    			{% endfor %}
+
+				];
+
+				var map;
+				function initMap() {
+					map = new google.maps.Map(document.getElementById('map'), {
+						center: {lat: 40.674389, lng: -4.700432},
+						zoom: 12
+					});
+
+					var myLatLng = {lat: 40.655988, lng: -4.695445};
+
+					// Añadimos los verracos al mapa y a la tabla
+					for (x=0;x<verracos.length;x++) {
+
+						var marker = new google.maps.Marker({
+    						position: verracos[x].geo,
+    						map: map,
+    						title: verracos[x].codigo + ' ' + verracos[x].nombre
+						});
+
+						var content = '<div><h3>'+ verracos[x].codigo + ' ' + verracos[x].nombre +'</h3>';
+						if (verracos[x].imagen)
+							content += '<img style="float:right" src="' + verracos[x].imagen +  '" width="200" height="200"/>';
+						content += verracos[x].descripcion + '<br> <a href="/verraco/' + verracos[x].codigo + '" target="_blank">Ver Ficha</a> </div>';
+
+						var infowindow = new google.maps.InfoWindow({
+							maxWidth: 400
+						});
+
+
+						google.maps.event.addListener(marker,'click', (function(marker,content,infowindow){
+							return function() {
+							   infowindow.setContent(content);
+							   infowindow.open(map,marker);
+							};
+						})(marker,content,infowindow));
+
+						/*
+						marker.addListener('click', function() {
+						  infos.open(map, marker);
+ 					    });
+
+ 					    */
+
+						$('#tablalistado tr:last').after('<tr><td>' + verracos[x].codigo + '</td><td>' + verracos[x].nombre + '</td></tr>');
+
+					}
+
+				}
+
+			</script>
+
+				<script async defer
+					src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAI-aSXcIHZMc33DMlqzgDN33uIdFWA5gs&callback=initMap">
+				</script>
+
+
+
+
+	</body>
+</html>

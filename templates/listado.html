@@ -1,0 +1,118 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>{{config['APPNAME']}} | Listado de Verracos</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="/static/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="/static/assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="/static/assets/css/ie9.css" /><![endif]-->
+
+		<style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map {  height: 500px; width: 100%; }
+
+      ul {
+          margin: 0;
+      }
+    </style>
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+				{% include '/includes/header.html' %}
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Listado</h2>
+							<p>Listado de Verracos</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+
+								<section>
+									<h3>Listado</h3>
+
+                                    <div class="row uniform">
+
+											<div class="12u">
+
+
+											   <table class="alt">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Código</th>
+                                                        <th>Zona</th>
+														<th>Localidad</th>
+                                                        <th>Forma</th>
+                                                        <th>Tipo</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+												    {% for verraco in verracos %}
+                                                    <tr>
+                                                        <td>{{verraco['codigo']}} {{verraco['nombre']}}</td>
+                                                        <td>{{verraco['zona']}}</td>
+														<td>{{verraco['localidad']}}</td>
+                                                        <td>{{verraco['forma']}}</td>
+                                                        <td>{% if verraco['tipo'] != '' : %}
+                                                            Tipo {{verraco['tipo']}}
+                                                            {% endif %}
+                                                        </td>
+                                                        <td><ul class="actions">
+									                        <li><a href="/verraco/{{verraco['codigo']}}"class="button special small icon fa-play">Detalle</a></li>
+								                        </ul> </td>
+
+                                                    </tr>
+												{% endfor %}
+												</tbody>
+                                               </table>
+
+
+											</div>
+
+                                    <hr />
+
+                                    <ul class="actions">
+                                        <li><a href="/mapa" class="button special icon fa-map">Mapa de Localización</a></li>
+                                        <li><a href="/buscar" class="button special icon fa-search">Búsqueda</a></li>
+                                    </ul>
+
+									</div>
+
+
+								</section>
+
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+				{% include '/includes/footer.html' %}
+
+			</div>
+		<!-- Scripts -->
+			<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/static/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/static/assets/js/skel.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/static/assets/js/main.js"></script>
+
+
+
+	</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>{{config['APPNAME']}} | Login</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="/static/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="/static/assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="/static/assets/css/ie9.css" /><![endif]-->
+
+		<style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map {  height: 500px; width: 100%; }
+    </style>
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+			{% include '/includes/header.html' %}
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Gestión del Sistema de Verracos</h2>
+							<p>Login de Usuario</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+
+								<h3>Login</h3>
+								<form action='login' method='POST'>
+									<div class="row">
+										<div class="4u 12u$(small)">
+											<input type='text' name='username' id='username' placeholder='username'></input>
+										</div>
+										<div class="4u 12u$(small)">
+											<input type='password' name='password' id='password' placeholder='password'></input>
+										</div>
+										<div class="4u 12u$(small)">
+											<input type='submit' name='submit' value="Login" class="special"></input>
+										</div>
+									</div>
+								</form>
+
+								<div"><p>{% if error: %} Error en el login!!! {% endif %}</p></div>
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+				{% include '/includes/footer.html' %}
+
+			</div>
+
+
+		<!-- Scripts -->
+        <script src="/static/assets/js/jquery.min.js"></script>
+        <script src="/static/assets/js/jquery.scrollex.min.js"></script>
+        <script src="/static/assets/js/jquery.scrolly.min.js"></script>
+        <script src="/static/assets/js/skel.min.js"></script>
+        <script src="/static/assets/js/util.js"></script>
+        <!--[if lte IE 8]><script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+        <script src="/static/assets/js/main.js"></script>
+
+	</body>
+</html>

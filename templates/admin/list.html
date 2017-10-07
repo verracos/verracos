@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>{{config['APPNAME']}} | Administración</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="/static/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="/static/assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="/static/assets/css/ie9.css" /><![endif]-->
+
+		<style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map {  height: 500px; width: 100%; }
+
+
+      ul {
+          margin: 0;
+      }
+
+
+
+    </style>
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+			{% include '/includes/header.html' %}
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Gestión del Sistema de Verracos</h2>
+							<p>Listado de Verracos</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+
+								<h3>Listado de Verracos</h3>
+
+								<section>
+
+
+									<div class="row uniform">
+
+											<div class="12u">
+
+
+											   <table class="alt">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Código</th>
+                                                        <th>Nombre</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+												    {% for verraco in verracos %}
+                                                    <tr>
+                                                        <td>{{ verraco['codigo']  }}</td><td>{{ verraco['nombre'] }}</td>
+                                                        <td><ul class="actions">
+									                        <li><a href="/admin/update/{{verraco['codigo']}}"class="button special small icon fa-pencil">Editar</a></li>
+                                                            <li><a href="/admin/picture/{{verraco['codigo']}}" class="button special icon fa-file-image-o">Fotos</a></li>
+                                                            <li><a href="/admin/doc/{{verraco['codigo']}}" class="button special icon fa-book">Bibliografía</a></li>
+															<li><a href="/admin/dimensions/{{verraco['codigo']}}" class="button special icon fa-arrows">Medidas</a></li>
+															<li><a href="/admin/inscript/{{verraco['codigo']}}" class="button special icon fa-italic">Inscripciones</a></li>
+								                        </ul> </td>
+
+                                                    </tr>
+												{% endfor %}
+												</tbody>
+                                               </table>
+
+
+											</div>
+
+
+									</div>
+								</section>
+
+
+
+								<hr />
+
+
+								<p><ul class="actions">
+									<li><a id="add" href="/admin/add" class="button special icon fa-upload">Alta Verraco</a></li>
+								</ul></p>
+                                <div id="resultado"></div>
+
+
+
+
+
+
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+				{% include '/includes/footer.html' %}
+
+			</div>
+
+
+		<!-- Scripts -->
+			<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/static/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/static/assets/js/skel.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/static/assets/js/main.js"></script>
+
+
+	</body>
+</html>

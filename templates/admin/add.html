@@ -1,0 +1,303 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @n33co
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>{{config['APPNAME']}} | Añadir Verraco</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="/static/assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="/static/assets/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="/static/assets/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="/static/assets/css/ie9.css" /><![endif]-->
+
+		<style type="text/css">
+      html, body { height: 100%; margin: 0; padding: 0; }
+      #map {  height: 500px; width: 100%; }
+    </style>
+	</head>
+	<body>
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+			{% include '/includes/header.html' %}
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Gestión del Sistema de Verracos</h2>
+							<p>Alta Verraco</p>
+						</header>
+
+						<section class="wrapper style5">
+							<div class="inner">
+
+								<h3>Alta Verraco</h3>
+
+								<section>
+									<header>
+										<h4>Información General</h4>
+									</header>
+
+
+
+
+									<div class="row uniform">
+
+											<div class="6u 12u$(small)">
+												<strong>Código</strong>: <input type="text" name="codigo" id="codigo" value="" placeholder="Código" />
+											</div>
+											<div class="6u 12u$(small)">
+												<strong>Nombre</strong>: <input type="text" name="nombre" id="nombre" value="" placeholder="Nombre" />
+											</div>
+											<div class="12u">
+												<strong>Descripción</strong>: <textarea name="descripcion" id="descripcion" placeholder="Descripción"/></textarea>
+											</div>
+											<div class="6u 12u$(small)">
+												<strong>Zona</strong>:
+                                                <div class="select-wrapper">
+													<select name="zona" id="zona">
+													</select>
+												</div>
+											</div>
+
+											<div class="6u 12u$(small)">
+												<strong>Localidad</strong>:
+                                                <div class="select-wrapper">
+													<select name="localidad" id="localidad">
+													</select>
+												</div>
+											</div>
+
+											<div class="12u">
+												<strong>Procedencia</strong>: <textarea name="procedencia" id="procedencia" placeholder="Procedencia"/></textarea>
+											</div>
+
+											<div class="4u 12u$(small)">
+												<strong>Forma</strong>:
+												<div class="select-wrapper">
+													<select name="forma" id="forma">
+														<option value="">- Forma -</option>
+														<option value="Cerdo">Cerdo</option>
+														<option value="Jabali">Jabali</option>
+														<option value="Toro">Toro</option>
+														<option value="Indeterminada">Indeterminada</option>
+													</select>
+												</div>
+											</div>
+
+											<div class="6u 12u$(small)">
+												<strong>Siglo</strong>:
+												<input type="text" size="15" name="siglo" id="siglo" value="" />
+											</div>
+											<div class="6u 12u$(small)">
+												<strong>Tipo</strong>:
+												<div class="select-wrapper">
+													<select name="tipo" id="tipo">
+														<option value="">- Tipo -</option>
+														<option value="1">Tipo 1</option>
+														<option value="2">Tipo 2</option>
+														<option value="3">Tipo 3</option>
+														<option value="4">Tipo 4</option>
+														<option value="5">Tipo 5</option>
+														<option value="Cabeza Exenta">Cabeza Exenta</option>
+														<option value="Indeterminado">Indeterminado</option>
+													</select>
+												</div>
+											</div>
+											<div class="12u">
+												<strong>Estado</strong>: <textarea name="estado" id="estado" placeholder="Estado"/></textarea>
+											</div>
+
+									</div>
+								</section>
+
+								<hr />
+
+								<section>
+									<header>
+										<h4>Ubicación</h4>
+									</header>
+
+
+
+									<div class="row">
+
+											<div class="6u">
+												<div class="12u">
+													<strong>Ubicación</strong>: <textarea rows="8" name="ubicacion" id="ubicacion" placeholder="Ubicación"/></textarea>
+												</div>
+												<div class="6u 12u$(small)">
+													<strong>Longitud</strong>: <input type="text" name="lng" id="lng" value="" placeholder="Longitud" />
+												</div>
+												<div class="6u 12u$(small)">
+													<strong>Latitud</strong>: <input type="text" name="lat" id="lat" value="" placeholder="Latitud" />
+												</div>
+                                                <div>&nbsp;</div>
+                                                <div class="6u 12u$(small)">
+												    <input type="checkbox" id="sinubicacion" name="sinubicacion">
+												    <label for="sinubicacion">Sin Ubicación</label>
+											    </div>
+											</div>
+											<div class="6u"><div id="map"></div></div>
+									</div>
+								</section>
+
+								<hr />
+
+
+								<p><ul class="actions">
+									<li><a id="add" href="#" class="button special icon fa-upload">Añadir Verraco</a></li>
+									<li><a href="/admin/" class="button special icon fa-list">Listado de Verracos</a></li>
+								</ul></p>
+                                <div id="resultado"></div>
+
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+				{% include '/includes/footer.html' %}
+
+			</div>
+
+
+		<!-- Scripts -->
+			<script src="/static/assets/js/jquery.min.js"></script>
+			<script src="/static/assets/js/jquery.scrollex.min.js"></script>
+			<script src="/static/assets/js/jquery.scrolly.min.js"></script>
+			<script src="/static/assets/js/skel.min.js"></script>
+			<script src="/static/assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="/static/assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="/static/assets/js/main.js"></script>
+
+
+		<script type="text/javascript">
+
+
+				function updateMarkerPosition(latLng) {
+
+					document.getElementById('lat').value = latLng.lat();
+					document.getElementById('lng').value = latLng.lng();
+
+				}
+
+
+				function initMap() {
+					var latLng = new google.maps.LatLng(40.655508428378184, -4.696762738067605);
+					var map = new google.maps.Map(document.getElementById('map'), {
+						zoom: 15,
+						center: latLng,
+						mapTypeId: google.maps.MapTypeId.ROADMAP
+					});
+
+					var marker = new google.maps.Marker({
+						position: latLng,
+						title: 'Verraco',
+						map: map,
+						draggable: true
+					});
+
+					// Update current position info.
+					updateMarkerPosition(latLng);
+
+					google.maps.event.addListener(marker, 'dragend', function() {
+						updateMarkerPosition(marker.getPosition());
+					});
+
+				}
+
+
+                $(document).ready(function() {
+
+                    // Cargamos las zonas
+                    $("#zona").load("/api/zona", function(response,status,xhr){
+                        var primero = '';
+                        $.each(JSON.parse(response),function(key, value) {
+                            if (primero == '') primero = value.zona;
+                            $("#zona").append('<option value="' + value.zona + '">' + value.zona + '</option>');
+                        });
+                        cargar_localidades(primero);
+                    });
+                });
+
+                $("#zona").change(function(){
+                    cargar_localidades($(this).val());
+                });
+
+
+                function cargar_localidades(zona) {
+                     $("#localidad").load("/api/zona/"+encodeURI(zona), function(response,status,xhr){
+                        var l = JSON.parse(response).localidades;
+                        if (l) {
+                            $.each(l, function (key, value) {
+                                $("#localidad").append('<option value="' + value + '">' + value + '</option>');
+                            });
+                        }
+                    });
+                }
+
+
+				var add = document.getElementById("add");
+				add.addEventListener("click",function(ev){
+
+					var verraco = new Object();
+					verraco.codigo = document.getElementById("codigo").value;
+				    verraco.nombre = document.getElementById("nombre").value;
+				    verraco.zona = document.getElementById("zona").value;
+                    verraco.localidad = document.getElementById("localidad").value;
+					verraco.descripcion = document.getElementById("descripcion").value;
+				    verraco.procedencia = document.getElementById("procedencia").value;
+					verraco.forma = document.getElementById("forma").value;
+
+					verraco.siglo = document.getElementById("siglo").value;
+					verraco.tipo = document.getElementById("tipo").value;
+					verraco.estado = document.getElementById("estado").value;
+
+					// Ubicación
+					var geo = new Object();
+					geo.ubicacion = document.getElementById("ubicacion").value;
+					geo.lat = document.getElementById("lat").value;
+					geo.lng = document.getElementById("lng").value;
+
+                    if (document.getElementById("sinubicacion").checked)
+                        geo.sinubicacion = "true";
+                    else
+                        geo.sinubicacion = "false";
+					verraco.geo = geo;
+
+
+					$.ajax({
+						type: 'POST',
+						url: '/api/verraco',
+						data: JSON.stringify(verraco),
+						contentType: 'application/json',
+						processData: false,
+					}).done(function(data, textStatus, jqXHR){
+						document.getElementById("resultado").innerHTML = data.resultado.respuesta + ': ' + data.resultado.descripcion;
+					}).fail(function(data){
+						document.getElementById("resultado").innerHTML = 'Error en petición';
+					});
+
+					ev.preventDefault();
+
+
+
+				},false);
+
+
+			</script>
+
+
+
+				<script async defer
+				src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAI-aSXcIHZMc33DMlqzgDN33uIdFWA5gs&callback=initMap">
+			</script>
+
+
+	</body>
+</html>

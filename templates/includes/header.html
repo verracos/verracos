@@ -1,0 +1,27 @@
+<!-- Header -->
+<header id="header">
+    <h1><a href="/">Verracos</a></h1>
+    <nav id="nav">
+        <ul>
+            <li class="special">
+                <a href="#menu" class="menuToggle"><span>Menu</span></a>
+                <div id="menu">
+                    <ul>
+                        <li><a class="small icon fa-home" href="/">  Inicio</a></li>
+                        <li><a class="small icon fa-list-ul" href="/listado">  Listado</a></li>
+                        <li><a class="small icon fa-map" href="/mapa">  Mapa</a></li>
+                        <li><a class="small icon fa-search" href="/buscar">  Buscar</a></li>
+                        <li><a class="small icon fa-info-circle" href="/acerca-de">  Acerca de</a></li>
+                        <li><a class="small icon fa-envelope" href="/contactar"> Contactar</a></li>
+                        {% if current_user.is_authenticated %}
+                            <li><a class="small icon fa-edit" href="/admin">  Gestión</a></li>
+                            <li><a class="small icon fa-user" href="{{ url_for('logout') }}">  Salir</a></li>
+                        {% else %}
+                            <li><a class="small icon fa-user" href="{{ url_for('login') }}">  Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
