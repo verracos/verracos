@@ -404,3 +404,7 @@ def unauthorized_handler():
 
 def on_json_loading_failed():
     logging.debug('callback')
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port='8080')
