@@ -112,7 +112,6 @@ def verraco_aleatorio():
     if 'pictures' in verracoaleatorio:
         tamanio = len(verracoaleatorio['pictures'])
         aleatorio = randint(0,tamanio-1)
-        print aleatorio
         foto = 'https://s3-eu-west-1.amazonaws.com/verracos/' + verracoaleatorio['codigo'] + '/' + verracoaleatorio['pictures'][aleatorio]['file']
     else:
         foto = 'http://www.verracos.es/static/images/banner.jpg'
