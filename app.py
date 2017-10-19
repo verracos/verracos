@@ -46,7 +46,7 @@ def home():
     return render_template('index.html')
 
 @app.route('/test')
-def home():
+def test():
     return 'Up & Running!!!'
 
 @app.route('/listado')
@@ -266,10 +266,6 @@ def api_picture_add(id):
     return jsonify({'resultado':resultado})
 
 
-if __name__ == '__main__':
-    app.run()
-
-
 @app.route('/api/verraco/<id>/picture/<filename>', methods=['DELETE'])
 def api_picture_delete(id,filename):
     # Borra una imagen
@@ -350,8 +346,6 @@ def api_inscriptions_delete(id,iddoc):
     resultado = verraco.delete_inscriptions(id,doc)
     return jsonify({'resultado':resultado})
 
-
-
 @app.route('/api/zona', methods=['GET'])
 def api_zona():
     # Devolvemos todas las zonas que existan
@@ -363,9 +357,6 @@ def api_localidades(idzona):
     # Devolvemos todas las zonas que existan
     resultado = zona.listado_localidades(idzona)
     return resultado
-
-
-
 
 # Login
 
@@ -408,6 +399,6 @@ def unauthorized_handler():
 def on_json_loading_failed():
     logging.debug('callback')
 
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='8080')
+    logging.debug('Arrancando aplicación Verracos')
+    app.run(host='127.0.0.1', port=8080)
