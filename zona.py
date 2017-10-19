@@ -15,7 +15,6 @@ def listado_zonas():
     return dumps(db.zonas.find({},{'zona':1,'_id':0}).sort('zona',-1))
 
 def listado_localidades(zona):
-    print dumps(db.zonas.find_one({'zona':zona},{'localidades':1,'_id':0}))
     return dumps(db.zonas.find_one({'zona':zona},{'localidades':1,'_id':0}))
 
 
