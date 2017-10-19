@@ -40,7 +40,6 @@ def update(verraco):
 # Borra un verraco
 def delete(codigo):
     resultado = db.listado.delete_one(codigo)
-    print resultado.deleted_count
     return tools.rok('007')
 
 
