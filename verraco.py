@@ -16,7 +16,7 @@ def add(verraco):
 
     try:
         id = listado.insert_one(verraco)
-        if id <> '':
+        if id != '':
             r = tools.rok('001')
         else:
             r = tools.rerror('004')
