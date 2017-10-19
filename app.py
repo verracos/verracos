@@ -401,4 +401,4 @@ def on_json_loading_failed():
 
 if __name__ == '__main__':
     logging.debug('Arrancando aplicación Verracos')
-    app.run(host='127.0.0.1', port=8080)
+    app.run(host='0.0.0.0', port='8080')
