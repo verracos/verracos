@@ -45,6 +45,10 @@ mail.init_app(app)
 def home():
     return render_template('index.html')
 
+@app.route('/test')
+def home():
+    return 'Up & Running!!!'
+
 @app.route('/listado')
 def listado():
     verracos = verraco.list()
