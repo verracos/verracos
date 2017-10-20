@@ -3,13 +3,13 @@
 from pymongo import MongoClient, errors
 import tools,os
 from random import randint
-from urllib import quote_plus
+from urllib.parse import quote_plus
 
 user = os.environ.get('MONGODB_USER','victor')
 pwd = os.environ.get('MONGODB_PASSWORD','victor')
-bd = os.environ.get('MONGODB_DATABASE','localhost:27017/')
+bd = os.environ.get('MONGODB_DATABASE','verracos')
 
-uri = "mongodb://%s:%s@%s" % (quote_plus(user), quote_plus(pwd), quote_plus(bd))
+uri = "mongodb://%s:%s@localhost:27017/%s" % (quote_plus(user), quote_plus(pwd), quote_plus(bd))
 client = MongoClient(uri)
 
 db = client.verracos
