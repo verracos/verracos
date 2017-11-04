@@ -41,13 +41,15 @@ app.config['MAIL_USE_SSL'] = True
 mail = Mail()
 mail.init_app(app)
 
+logging.debug('Verracos configurado')
+
 @app.route('/')
 def home():
     return render_template('index.html')
 
 @app.route('/test')
 def test():
-    return 'Up & Running!!!'
+    return 'Verracos Up & Running!!!'
 
 @app.route('/listado')
 def listado():
