@@ -9,6 +9,7 @@ from flask_mail import Mail, Message
 from random import randint
 from werkzeug.security import generate_password_hash
 import requests
+from urllib.parse import quote_plus
 
 LOG_FILENAME = '/tmp/verracos.log'
 logging.basicConfig(filename=LOG_FILENAME,level=logging.DEBUG)
@@ -27,7 +28,13 @@ login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
 
 # Configuracion MongoDB
-client = MongoClient(os.environ.get('OPENSHIFT_MONGODB_DB_URL','mongodb://localhost:27017/'))
+user = os.environ.get('MONGODB_USER','victor')
+pwd = os.environ.get('MONGODB_PASSWORD','victor')
+bd = os.environ.get('MONGODB_DATABASE','verracos')
+servidor = os.environ.get('MONGODB_SERVICE_HOST','localhost')
+uri = "mongodb://%s:%s@%s:27017/%s" % (quote_plus(user), quote_plus(pwd), quote_plus(servidor),quote_plus(bd))
+client = MongoClient(uri)
+
 db = client.verracos
 users = db.users
 

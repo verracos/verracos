@@ -8,8 +8,9 @@ from urllib.parse import quote_plus
 user = os.environ.get('MONGODB_USER','victor')
 pwd = os.environ.get('MONGODB_PASSWORD','victor')
 bd = os.environ.get('MONGODB_DATABASE','verracos')
+servidor = os.environ.get('MONGODB_SERVICE_HOST','localhost')
+uri = "mongodb://%s:%s@%s:27017/%s" % (quote_plus(user), quote_plus(pwd), quote_plus(servidor),quote_plus(bd))
 
-uri = "mongodb://%s:%s@localhost:27017/%s" % (quote_plus(user), quote_plus(pwd), quote_plus(bd))
 client = MongoClient(uri)
 db = client.verracos
 zonas = db.zonas
