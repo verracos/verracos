@@ -1,8 +1,13 @@
 # Verracos #
-Verracos es un sistema para la catalogación de verracos de la peninsula ibérica desarrollado por [Víctor Cuervo][1] que puedes encontrar en la web [verracos.es][2].
+Verracos es un sistema para la catalogación de verracos de la peninsula ibérica que cubre el trabajo de investigación de [José Cuervo][3]
+Sistema desarrollado por [Víctor Cuervo][1] que puedes encontrar en la web [verracos.es][2].
 
 
 ## Versiones
+
+### v1.0.3
+* Adaptado para ejecutarse en DigitalOcean
+
 ### v1.0.2
 * Contacto de la web mediante formulario
 * Añadido un servicio /aleatorio que devuelve un verraco de forma aleatoria para utilizarlo en IFTTT
@@ -19,3 +24,4 @@ Verracos es un sistema para la catalogación de verracos de la peninsula ibéric
 
 [1]: https://github.com/victorcuervo
 [2]: http://www.verracos.es
+[3]: http://www.josecuervo.es
