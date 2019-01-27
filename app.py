@@ -306,7 +306,7 @@ def api_doc_delete(id,iddoc):
     # Elimina un documento de la bibliografía del verraco
 
     doc = {
-            'codigo': long(iddoc),
+            'codigo': int(iddoc),
     }
 
     resultado = verraco.delete_doc(id,doc)
@@ -327,7 +327,7 @@ def api_dimensions_delete(id,iddoc):
     # Elimina unas dimensiones del verraco de su listado de dimensiones
 
     doc = {
-            'codigo': long(iddoc),
+            'codigo': int(iddoc),
     }
 
     resultado = verraco.delete_dimensions(id,doc)
@@ -349,7 +349,7 @@ def api_inscriptions_delete(id,iddoc):
     # Elimina una de las inscripciones del verraco de su listado de inscripciones
 
     doc = {
-            'codigo': long(iddoc),
+            'codigo': int(iddoc),
     }
 
     resultado = verraco.delete_inscriptions(id,doc)
