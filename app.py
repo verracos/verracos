@@ -18,6 +18,8 @@ S3_ACCESS_KEY = os.environ.get('S3ACCESSKEY')
 S3_SECRET_KEY = os.environ.get('S3SECRETKEY')
 s3conn = tinys3.Connection(S3_ACCESS_KEY,S3_SECRET_KEY,'verracos',endpoint='s3-eu-west-1.amazonaws.com')
 
+IFTTT_KEY = os.environ.get('IFTTT')
+
 app = Flask(__name__)
 app.secret_key = os.environ.get('FLASKSECRETKEY')
 app.config['APPNAME'] = 'Verracos'
@@ -136,7 +138,7 @@ def verraco_aleatorio():
               }
 
     # Llamamos al webhook
-    requests.post('https://maker.ifttt.com/trigger/verraco/with/key/PDTE5', json = cadena)
+    requests.post('https://maker.ifttt.com/trigger/verraco/with/key/'+IFTTT_KEY, json = cadena)
 
     #Retornamos el JSON con el verraco
     return jsonify(cadena)
