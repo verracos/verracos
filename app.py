@@ -124,12 +124,13 @@ def verraco_aleatorio():
     verracoaleatorio = verraco.obtener_verraco_aleatorio()
 
     # Recorremos todas las fotos y ponemos una aleatoria
-    if 'pictures' in verracoaleatorio:
-        tamanio = len(verracoaleatorio['pictures'])
-        aleatorio = randint(0,tamanio-1)
-        foto = 'https://s3-eu-west-1.amazonaws.com/verracos/' + verracoaleatorio['codigo'] + '/' + verracoaleatorio['pictures'][aleatorio]['file']
-    else:
-        foto = 'http://www.verracos.es/static/images/banner.jpg'
+    while (not 'pictures' in verracoaleatorio):
+        verracoaleatorio = verraco.obtener_verraco_aleatorio()
+
+    tamanio = len(verracoaleatorio['pictures'])
+    aleatorio = randint(0,tamanio-1)
+    foto = 'https://s3-eu-west-1.amazonaws.com/verracos/' + verracoaleatorio['codigo'] + '/' + verracoaleatorio['pictures'][aleatorio]['file']
+
 
     # Montamos el JSON
     cadena = {'value1':verracoaleatorio['nombre'] + ' ' + verracoaleatorio['codigo'] + ' ' + verracoaleatorio['zona'],
@@ -138,7 +139,7 @@ def verraco_aleatorio():
               }
 
     # Llamamos al webhook
-    requests.post('https://maker.ifttt.com/trigger/verraco/with/key/'+IFTTT_KEY, json = cadena)
+    # requests.post('https://maker.ifttt.com/trigger/verraco/with/key/'+IFTTT_KEY, json = cadena)
 
     #Retornamos el JSON con el verraco
     return jsonify(cadena)
