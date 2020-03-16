@@ -139,7 +139,7 @@ def verraco_aleatorio():
               }
 
     # Llamamos al webhook
-    # requests.post('https://maker.ifttt.com/trigger/verraco/with/key/'+IFTTT_KEY, json = cadena)
+    requests.post('https://maker.ifttt.com/trigger/verraco/with/key/'+IFTTT_KEY, json = cadena)
 
     #Retornamos el JSON con el verraco
     return jsonify(cadena)
